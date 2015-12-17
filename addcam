@@ -2,5 +2,5 @@
 
 cam=$1
 
-pure-pw useradd $1 -u ftpuser -d /home/ftpusers/$1
+pure-pw useradd $cam -u ftpuser -d /home/ftpusers/$cam
 pure-pw mkdb

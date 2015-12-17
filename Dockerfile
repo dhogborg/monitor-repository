@@ -11,9 +11,11 @@ RUN apt-get update && \
 # add our scripts
 ADD rotate.sh /rotate.sh
 ADD run.sh /run.sh
+ADD addcam /usr/bin/addcam
 
 # make em excutable
 RUN chmod 755 /*.sh
+RUN chmod 755 /usr/bin/addcam
 
 # add our crontab file
 ADD config/crontab.txt /config/crontab.txt

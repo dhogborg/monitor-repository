@@ -4,7 +4,7 @@ build:
 	docker build --rm -t monrep-dev .
 
 run: kill
-	docker run -d --name monrep -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" monrep-dev
+	docker run -d --name monrep -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=192.168.99.100" monrep-dev
 
 kill:
 	docker rm -f monrep
