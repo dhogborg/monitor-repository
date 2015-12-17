@@ -2,9 +2,15 @@
 
 cron
 
+archive="/home/ftpusers/archive"
+
 # Bootstrap the archive
-if [ ! -e /home/archive ]; then 
+if [ ! -e $archive ]; then 
 	
+	/usr/sbin/pure-ftpd \
+		--createhomedir \
+		--login puredb:/etc/pure-ftpd/pureftpd.pdb &
+
 	if [ ! $ADMIN_PASSWORD ]; then
 		ADMIN_PASSWORD=`date +%s | sha256sum | base64 | head -c 32`
 	fi
@@ -13,12 +19,11 @@ if [ ! -e /home/archive ]; then
 	echo $ADMIN_PASSWORD >> /tmp/pw
 	echo "" >> /tmp/pw
 	
-	archive="/home/archive"
 	mkdir -p $archive
 	cd $archive
-	mkdir 0 1 2 3 4 5 6 
+	mkdir 1 2 3 4 5 6 7
 
-	pure-pw useradd $1 -u ftpuser -D /home/ < /tmp/pw;
+	pure-pw useradd admin -u ftpuser -D /home/ftpusers/ < /tmp/pw;
 	pure-pw mkdb
 
 	echo "++++++++++++++++++++"
@@ -27,7 +32,9 @@ if [ ! -e /home/archive ]; then
 	echo ""
 
 	rm /tmp/pw
+	kill $(cat /var/run/pure-ftpd.pid)
 fi
+
 
 /usr/sbin/pure-ftpd \
 	--maxclientsnumber 50 \
