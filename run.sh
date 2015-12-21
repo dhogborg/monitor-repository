@@ -23,7 +23,7 @@ if [ ! -e $archive ]; then
 	cd $archive
 	mkdir 1 2 3 4 5 6 7
 
-	pure-pw useradd admin -u ftpuser -D /home/ftpusers/ < /tmp/pw;
+	pure-pw useradd admin -u ftpuser -d /home/ftpusers/ < /tmp/pw;
 	pure-pw mkdb
 
 	echo "++++++++++++++++++++"
